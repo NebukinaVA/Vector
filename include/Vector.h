@@ -11,67 +11,96 @@ class Vector
 	int len;
 	int top = 0;
 public:
+	// конструктор по умолчанию
 	Vector()
 	{
 		len = 20;
 		data = new T[len];
 	}
+	// конструктор с параметром
 	Vector(int length)
 	{
+		if (length < 0) throw "Incorrect input.";
 		len = length;
 		data = new T[len];
 	}
-	Vector(const Vector& v)
+	// конструктор копирования
+	Vector(const Vector &v)
 	{
-		data = v.data;
 		len = v.len;
 		top = v.top;
+		data = new T[len];
+		for (int i = 0; i < top; i++)
+			data[i] = v.data[i];
 	}
-	~Vector()
+	// деструктор
+	~Vector()                
 	{
 		delete[] data;
 	}
+	// добавить элемент в конец вектора
 	void push_back(T elem)
 	{
-		if (top == len - 1)
+		if ((top == len) && (len != 0))
 			resize();
 		data[top] = elem;
 		top++;
 	}
+	// удалить последний элемент вектора
 	void pop_back()
 	{
 		if (empty()) throw "Vector is empty!";
 		top--;
 	}
-	void resize(int newlen = len * 2)
+	// перепаковка с параметром
+	void resize(int newlen)
 	{
+		if (newlen < len) throw "New length is less than old length";
 		T* temp = new T[newlen];
 		for (int i = 0; i < len; i++)
 			temp[i] = data[i];
 		delete[] data;
 		data = temp;
 		len = newlen;
-		delete[] temp;
 	}
+	// перепаковка без параметра
+	void resize()
+	{
+		int newlen = len * 2;
+		if (len == 0) newlen = 10;
+		T* temp = new T[newlen];
+		for (int i = 0; i < len; i++)
+			temp[i] = data[i];
+		delete[] data;
+		data = temp;
+		len = newlen;
+	}
+	// проверить, пустой ли вектор
 	bool empty()
 	{
 		if (top == 0)
 			return true;
 		return false;
 	}
+	// вернуть размер вектора
+	size_t size()
+	{
+		return static_cast<size_t>(len);
+	}
+	// добавить элемет в начало вектора
 	void push_front(T elem)
 	{
-		if (top == len - 1)
+		if ((top == len) && (len != 0))
 			resize();
 		T* temp = new T[len];
+		temp[0] = elem;
 		for (int i = 0; i < top; i++)
 			temp[i + 1] = data[i];
-		temp[0] = elem;
 		delete[] data;
 		data = temp;
 		top++;
-		delete[] temp;
 	}
+	// удалить первый элемент вектора
 	void pop_front()
 	{
 		if (empty()) throw "Vector is empty!";
@@ -80,14 +109,56 @@ public:
 			temp[i - 1] = data[i];
 		delete[] data;
 		data = temp;
-		delete[] temp;
 		top--;
 	}
+	// перегрузка оператора [] в неконстантном варианте
 	T& operator[](int index)
 	{
-		return *this->data[index];
+		if ((index < 0) || (index >= len)) throw "Incorrect index!";
+		return this->data[index];
+	}
+	// перегрузка оператора [] в константном варианте
+	const T& operator[](int index) const
+	{
+		if ((index < 0) || (index >= top)) throw "Incorrect index!";
+		return this->data[index];
+	}
+	// перегрузка оператора сравнения
+	bool operator==(const Vector &v) const
+	{
+		if ((top != v.top) || (len != v.len)) return false;
+		for (int i = 0; i < top; i++)
+		{
+			if (data[i] != v.data[i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	// перегрузка оператора сравнения
+	bool operator!=(const Vector &v) const   
+	{
+		if (&v == this) return false;
+		return true;
+	}
+	// перегрузка оператора присваивания
+	Vector<T>& operator=(const Vector &v)
+	{
+		if (&v != this)
+		{
+			if ((len != v.len) || (top != v.top))
+			{
+				top = v.top;
+				len = v.len;
+				delete[] data;
+				data = new T[len];
+			}
+			for (int i = 0; i < top; i++)
+				data[i] = v.data[i];
+		}
+		return *this;
 	}
 };
-
 
 #endif

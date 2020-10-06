@@ -41,8 +41,12 @@ public:
 	// добавить элемент в конец вектора
 	void push_back(T elem)
 	{
-		if ((top == len) && (len != 0))
-			resize();
+		if (top == len)
+		{
+			if (len == 0)
+				resize(20);
+			else resize();
+		}
 		data[top] = elem;
 		top++;
 	}
@@ -85,30 +89,29 @@ public:
 	// вернуть размер вектора
 	size_t size()
 	{
-		return static_cast<size_t>(len);
+		return static_cast<size_t>(len); // ?
+    //	return static_cast<size_t>(top);
 	}
 	// добавить элемет в начало вектора
 	void push_front(T elem)
 	{
-		if ((top == len) && (len != 0))
-			resize();
-		T* temp = new T[len];
-		temp[0] = elem;
-		for (int i = 0; i < top; i++)
-			temp[i + 1] = data[i];
-		delete[] data;
-		data = temp;
+		if (top == len)
+		{
+			if (len == 0)
+				resize(20);
+			else resize();
+		}
+		for (int i = top - 1; i >= 0; i--) 
+			data[i + 1] = data[i];
+		data[0] = elem;
 		top++;
 	}
 	// удалить первый элемент вектора
 	void pop_front()
 	{
 		if (empty()) throw "Vector is empty!";
-		T* temp = new T[len];
 		for (int i = 1; i < top; i++)
-			temp[i - 1] = data[i];
-		delete[] data;
-		data = temp;
+			data[i - 1] = data[i];
 		top--;
 	}
 	// перегрузка оператора [] в неконстантном варианте

@@ -11,20 +11,20 @@ class Vector
 	int len;
 	int top = 0;
 public:
-	// конструктор по умолчанию
+	// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 	Vector()
 	{
 		len = 20;
 		data = new T[len];
 	}
-	// конструктор с параметром
+	// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂРѕРј
 	Vector(int length)
 	{
 		if (length < 0) throw "Incorrect input.";
 		len = length;
 		data = new T[len];
 	}
-	// конструктор копирования
+	// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 	Vector(const Vector &v)
 	{
 		len = v.len;
@@ -33,12 +33,12 @@ public:
 		for (int i = 0; i < top; i++)
 			data[i] = v.data[i];
 	}
-	// деструктор
+	// РґРµСЃС‚СЂСѓРєС‚РѕСЂ
 	~Vector()                
 	{
 		delete[] data;
 	}
-	// добавить элемент в конец вектора
+	// РґРѕР±Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚ РІ РєРѕРЅРµС† РІРµРєС‚РѕСЂР°
 	void push_back(T elem)
 	{
 		if (top == len)
@@ -50,13 +50,13 @@ public:
 		data[top] = elem;
 		top++;
 	}
-	// удалить последний элемент вектора
+	// СѓРґР°Р»РёС‚СЊ РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚ РІРµРєС‚РѕСЂР°
 	void pop_back()
 	{
 		if (empty()) throw "Vector is empty!";
 		top--;
 	}
-	// перепаковка с параметром
+	// РїРµСЂРµРїР°РєРѕРІРєР° СЃ РїР°СЂР°РјРµС‚СЂРѕРј
 	void resize(int newlen)
 	{
 		if (newlen < len) throw "New length is less than old length";
@@ -67,7 +67,7 @@ public:
 		data = temp;
 		len = newlen;
 	}
-	// перепаковка без параметра
+	// РїРµСЂРµРїР°РєРѕРІРєР° Р±РµР· РїР°СЂР°РјРµС‚СЂР°
 	void resize()
 	{
 		int newlen = len * 2;
@@ -79,20 +79,19 @@ public:
 		data = temp;
 		len = newlen;
 	}
-	// проверить, пустой ли вектор
+	// РїСЂРѕРІРµСЂРёС‚СЊ, РїСѓСЃС‚РѕР№ Р»Рё РІРµРєС‚РѕСЂ
 	bool empty()
 	{
 		if (top == 0)
 			return true;
 		return false;
 	}
-	// вернуть размер вектора
+	// РІРµСЂРЅСѓС‚СЊ СЂР°Р·РјРµСЂ РІРµРєС‚РѕСЂР°
 	size_t size()
 	{
-		return static_cast<size_t>(len); // ?
-    //	return static_cast<size_t>(top);
+    	return static_cast<size_t>(top);
 	}
-	// добавить элемет в начало вектора
+	// РґРѕР±Р°РІРёС‚СЊ СЌР»РµРјРµС‚ РІ РЅР°С‡Р°Р»Рѕ РІРµРєС‚РѕСЂР°
 	void push_front(T elem)
 	{
 		if (top == len)
@@ -106,7 +105,7 @@ public:
 		data[0] = elem;
 		top++;
 	}
-	// удалить первый элемент вектора
+	// СѓРґР°Р»РёС‚СЊ РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ РІРµРєС‚РѕСЂР°
 	void pop_front()
 	{
 		if (empty()) throw "Vector is empty!";
@@ -114,19 +113,19 @@ public:
 			data[i - 1] = data[i];
 		top--;
 	}
-	// перегрузка оператора [] в неконстантном варианте
+	// РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° [] РІ РЅРµРєРѕРЅСЃС‚Р°РЅС‚РЅРѕРј РІР°СЂРёР°РЅС‚Рµ
 	T& operator[](int index)
 	{
 		if ((index < 0) || (index >= len)) throw "Incorrect index!";
 		return this->data[index];
 	}
-	// перегрузка оператора [] в константном варианте
+	// РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° [] РІ РєРѕРЅСЃС‚Р°РЅС‚РЅРѕРј РІР°СЂРёР°РЅС‚Рµ
 	const T& operator[](int index) const
 	{
 		if ((index < 0) || (index >= top)) throw "Incorrect index!";
 		return this->data[index];
 	}
-	// перегрузка оператора сравнения
+	// РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° СЃСЂР°РІРЅРµРЅРёСЏ
 	bool operator==(const Vector &v) const
 	{
 		if ((top != v.top) || (len != v.len)) return false;
@@ -139,13 +138,13 @@ public:
 		}
 		return true;
 	}
-	// перегрузка оператора сравнения
+	// РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° СЃСЂР°РІРЅРµРЅРёСЏ
 	bool operator!=(const Vector &v) const   
 	{
 		if (&v == this) return false;
 		return true;
 	}
-	// перегрузка оператора присваивания
+	// РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
 	Vector<T>& operator=(const Vector &v)
 	{
 		if (&v != this)

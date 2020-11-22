@@ -69,7 +69,7 @@ public:
 		data = temp;
 		len = newlen;
 	}
-	// перепаковка без параметра
+	//  перепаковка без параметра
 	void resize()
 	{
 		int newlen = len * 2;
@@ -91,10 +91,9 @@ public:
 	// вернуть размер вектора
 	size_t size()
 	{
-	//	return static_cast<size_t>(len);
     	return static_cast<size_t>(top);
 	}
-	// добавить элемет в начало вектора
+	// добавить элемент в начало вектора
 	void push_front(T elem)
 	{
 		if (top == len)

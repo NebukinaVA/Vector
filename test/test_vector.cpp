@@ -115,7 +115,7 @@ TEST(Vector, vectors_with_different_size_are_not_equal)
 {
 	Vector <int> v1(10), v2(20);
 
-	EXPECT_FALSE(v1 == v2);
+	EXPECT_TRUE(v1 != v2);
 }
 
 TEST(Vector, can_check_if_vector_is_empty)
@@ -171,8 +171,10 @@ TEST(Vector, throws_when_pop_front_from_empty_vector)
 TEST(Vector, can_get_size)
 {
 	Vector<int> v(5);
+	v.push_back(0);
+	v.push_back(1);
 
-	EXPECT_EQ(5, v.size());
+	EXPECT_EQ(2, v.size());
 }
 
 TEST(Vector, assign_operator_changes_vector_size)
@@ -186,15 +188,6 @@ TEST(Vector, assign_operator_changes_vector_size)
 TEST(Vector, can_resize_vector)
 {
 	Vector<int> v(5);
-	v.resize();
-
-	EXPECT_EQ(10, v.size());
-}
-
-TEST(Vector, can_resize_vector_with_argument)
-{
-	Vector<int> v(5);
-	v.resize(11);
-
-	EXPECT_EQ(11, v.size());
+	
+	ASSERT_NO_THROW(v.resize());
 }

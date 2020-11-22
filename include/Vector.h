@@ -3,10 +3,12 @@
 
 #include <iostream>
 
-template <class T>
+//const int MAX_SIZE = 10000;
 
+template <class T>
 class Vector
 {
+protected:
 	T* data;
 	int len;
 	int top = 0;
@@ -34,7 +36,7 @@ public:
 			data[i] = v.data[i];
 	}
 	// деструктор
-	~Vector()                
+	virtual ~Vector()                
 	{
 		delete[] data;
 	}
@@ -89,8 +91,8 @@ public:
 	// вернуть размер вектора
 	size_t size()
 	{
-		return static_cast<size_t>(len); // ?
-    //	return static_cast<size_t>(top);
+	//	return static_cast<size_t>(len);
+    	return static_cast<size_t>(top);
 	}
 	// добавить элемет в начало вектора
 	void push_front(T elem)
@@ -163,5 +165,6 @@ public:
 		return *this;
 	}
 };
+
 
 #endif

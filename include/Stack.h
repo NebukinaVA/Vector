@@ -34,17 +34,9 @@ public:
 		pop_back();
 	}
 	bool operator==(const Stack &s) const
-	{
-		if ((top != s.top) || (len != s.len)) return false;
-		for (int i = 0; i < top; i++)
-		{
-			if (data[i] != s.data[i])
-			{
-				return false;
-			}
-		}
-		return true;
-	}
+        {
+                Vector::operator==(s);
+        }
 	bool operator!=(const Stack &s) const
 	{
 		if (&s == this) return false;
